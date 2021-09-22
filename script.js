@@ -22,7 +22,7 @@ class Ball {
 function setup() {
   createCanvas(1000, 400);
 
-  ball1 = new Ball(250, 50, 30, 30, 4)
+  ball1 = new Ball(250, 50, 30, 30, 3.5)
 
 }
 
