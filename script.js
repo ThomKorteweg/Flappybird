@@ -15,33 +15,56 @@ class Ball {
     if (this.y > 380) {
       this.gravity = 0;
     }
-    if (this.y < 0){
+    if (this.y < 0) {
       this.y = 20
     }
   }
 }
 
-var ball1;
+class Pijp {
+
+  constructor(x, y, w, h) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;    
+  }
+  drawPijp() {  
+    fill("green")  
+    rect(this.x, this.y, this.w, this.h);
+    this.x -= 5;
+  }
+
+
+}
+
+var ball1, rect1, rect2;
+var pipes = [];
 
 function setup() {
-  createCanvas(1000, 400);
+  createCanvas(600, 400);
 
-  ball1 = new Ball(250, 50, 30, 30, 3);   
+  ball1 = new Ball(250, 50, 30, 30, 3);  
 }
 
 function draw() {
   background(110, 0, 32);
+  
+  if(frameCount % 100 == 0 ){
+       
+    rect1 = new Pijp(700, 300, 50, 100, 3);
+    pipes.push(rect1);
+  }
+
   ball1.drawBall();
+  pipes.forEach(p => p.drawPijp());
 }
 
 function keyPressed() {
-  if(keyCode == 32){
+  if (keyCode == 32) {
     ball1.y -= 50;
   }
 }
 
-class Pipe {
-  
-  constructor(w, h)
-}
+
 
