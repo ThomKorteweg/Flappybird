@@ -1,11 +1,11 @@
-let photo
-let p
-let img
+let photo;
+let img;
+var jumpSound;
 
 function preload(){
   img = loadImage('background.jpg');
-  photo = loadImage('flappy.png')
-  p = loadImage('pijp.png')
+  photo = loadImage('flappy.png');
+  jumpSound = loadSound('wing.mp3')
 }
 
 
@@ -17,7 +17,7 @@ class Ball {
     this.w = w;
     this.h = h;
     this.vy = vy;
-    this.ay = 0.5;
+    this.ay = 0.3;
   }
   drawBall() {
     image(photo, this.x, this.y, this.w, this.h);
@@ -49,7 +49,7 @@ class Pijp {
   }
   drawPijp() { 
     rect(this.x, this.y, this.w, this.h);
-    this.x -= 5;
+    this.x -= 4;
   }
 
 
@@ -71,9 +71,9 @@ function draw() {
   fill("white");
   text("0",250, 50);
 
-  if(frameCount % 60 == 0 ){   
+  if(frameCount % 80 == 0 ){   
     let randomTopHeight = random(height / 2);
-    console.log(randomTopHeight);
+    // console.log(randomTopHeight);
     rect1 = new Pijp(700, 0, 50, randomTopHeight, 3);
     rect2 = new Pijp(700, randomTopHeight + 120, 50, height, 3);
     pipes.push(rect1, rect2);
@@ -89,6 +89,7 @@ function draw() {
 function keyPressed() {
   if (keyCode == 32) {
     ball1.vy = -6;
+    jumpSound.play()
   }
 }
 
