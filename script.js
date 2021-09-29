@@ -1,3 +1,14 @@
+let photo
+// var jumpsound
+let img
+
+function preload(){
+  img = loadImage('background.jpg');
+  photo = loadImage('flappy.png')
+  // jumpsound = loadSound('sounds/jump.mp3')
+}
+
+
 class Ball {
 
   constructor(x, y, w, h, vy) {
@@ -9,11 +20,12 @@ class Ball {
     this.ay = 0.5;
   }
   drawBall() {
-    ellipse(this.x, this.y, this.w, this.h)
+    image(photo, this.x, this.y, this.w, this.h);
+    // ellipse(this.x, this.y, this.w, this.h)
     this.vy = this.vy + this.ay;
     this.y = this.y + this.vy;
 
-    if (this.y > 385) {
+    if (this.y > 370) {
       this.vy = 0;
       this.ay = 0;
     }
@@ -44,21 +56,15 @@ class Pijp {
 
 var ball1, rect1, rect2;
 var pipes = [];
-let img
-
-function preload(){
-  img = loadImage('background.jpg');
-}
-
 
 function setup() {
   createCanvas(600, 400); 
-  ball1 = new Ball(250, 50, 30, 30, 3);    
+  ball1 = new Ball(250, 50, 40, 30, 3);    
 }
 
 function draw() {
   background(110, 0, 32);  
-   image(img,0,0,600,400); 
+   image(img,0,0,600,520); 
 
   textSize(30);
   fill("white");
