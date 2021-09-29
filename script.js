@@ -6,18 +6,22 @@ class Ball {
     this.w = w;
     this.h = h;
     this.vy = vy;
-    this.ay = 0.15;
+    this.ay = 0.5;
   }
   drawBall() {
     ellipse(this.x, this.y, this.w, this.h)
     this.vy = this.vy + this.ay;
     this.y = this.y + this.vy;
 
-    if (this.y > 380) {
+    if (this.y > 385) {
       this.vy = 0;
+      this.ay = 0;
+    }
+    else {
+    this.ay = 0.3;
     }
     if (this.y < 0) {
-      this.y = 20
+      this.y = 0
     }
   }
 }
@@ -40,31 +44,48 @@ class Pijp {
 
 var ball1, rect1, rect2;
 var pipes = [];
+let img
+
+function preload(){
+  img = loadImage('background.jpg');
+}
+
 
 function setup() {
-  createCanvas(600, 400);
-
+  createCanvas(600, 400); 
   ball1 = new Ball(250, 50, 30, 30, 3);    
 }
 
 function draw() {
-  background(110, 0, 32);
-  r = random(height)
+  background(110, 0, 32);  
+   image(img,0,0,600,400); 
+
+  textSize(30);
+  fill("white");
+  text("0",250, 50);
+
   if(frameCount % 100 == 0 ){   
-    rect1 = new Pijp(700, 300, 50, r, 3);
-    rect2 = new Pijp(700, 100, 50, r + 50, 3);
+    let randomTopHeight = random(height / 2);
+    console.log(randomTopHeight);
+    rect1 = new Pijp(700, 0, 50, randomTopHeight, 3);
+    rect2 = new Pijp(700, randomTopHeight + 100, 50, height, 3);
     pipes.push(rect1, rect2);
+
   }
 
   ball1.drawBall();
   pipes.forEach(p => p.drawPijp());
 }
 
+
+
 function keyPressed() {
   if (keyCode == 32) {
-    ball1.vy = -5;
+    ball1.vy = -6;
   }
 }
+
+
 
 
 
