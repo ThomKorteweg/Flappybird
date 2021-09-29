@@ -1,11 +1,11 @@
 let photo
-// var jumpsound
+let p
 let img
 
 function preload(){
   img = loadImage('background.jpg');
   photo = loadImage('flappy.png')
-  // jumpsound = loadSound('sounds/jump.mp3')
+  p = loadImage('pijp.png')
 }
 
 
@@ -40,13 +40,14 @@ class Ball {
 
 class Pijp {
 
-  constructor(x, y, w, h) {
+  constructor(x, y, w, h, color) {
     this.x = x;
     this.y = y;
     this.w = w;
-    this.h = h;    
+    this.h = h; 
+    this.color = color;   
   }
-  drawPijp() {  
+  drawPijp() { 
     rect(this.x, this.y, this.w, this.h);
     this.x -= 5;
   }
@@ -70,11 +71,11 @@ function draw() {
   fill("white");
   text("0",250, 50);
 
-  if(frameCount % 100 == 0 ){   
+  if(frameCount % 60 == 0 ){   
     let randomTopHeight = random(height / 2);
     console.log(randomTopHeight);
     rect1 = new Pijp(700, 0, 50, randomTopHeight, 3);
-    rect2 = new Pijp(700, randomTopHeight + 100, 50, height, 3);
+    rect2 = new Pijp(700, randomTopHeight + 120, 50, height, 3);
     pipes.push(rect1, rect2);
 
   }
