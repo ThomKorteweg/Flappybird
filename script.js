@@ -1,11 +1,13 @@
-let photo;
+let flappy;
 let img;
 var jumpSound;
+let pijp
 
 function preload(){
   img = loadImage('background.jpg');
-  photo = loadImage('flappy.png');
-  jumpSound = loadSound('wing.mp3')
+  flappy = loadImage('flappy.png');
+  pijp = loadImage('pijp.png');
+  jumpSound = loadSound('wing.mp3');
 }
 
 
@@ -20,7 +22,7 @@ class Ball {
     this.ay = 0.3;
   }
   drawBall() {
-    image(photo, this.x, this.y, this.w, this.h);
+    image(flappy, this.x, this.y, this.w, this.h);
     // ellipse(this.x, this.y, this.w, this.h)
     this.vy = this.vy + this.ay;
     this.y = this.y + this.vy;
@@ -40,18 +42,23 @@ class Ball {
 
 class Pijp {
 
-  constructor(x, y, w, h, color) {
+  constructor(x, y, w, h) {
     this.x = x;
     this.y = y;
     this.w = w;
-    this.h = h; 
-    this.color = color;   
+    this.h = h;  
   }
   drawPijp() { 
-    rect(this.x, this.y, this.w, this.h);
+    fill('green');
+    rect(this.x, this.y, this.w, this.h, this.color);
     this.x -= 4;
   }
 
+  checkCollision(){
+    if(ball1.x + ball1.w/2 > this.x){
+      console.log('bumped');
+    }
+  }
 
 }
 
@@ -60,20 +67,20 @@ var pipes = [];
 
 function setup() {
   createCanvas(600, 400); 
-  ball1 = new Ball(250, 50, 40, 30, 3);    
-}
+  ball1 = new Ball(250, 50, 40, 30, 3); 
+}   
 
 function draw() {
   background(110, 0, 32);  
    image(img,0,0,600,520); 
 
   textSize(30);
-  fill("white");
+  fill('white');
   text("0",250, 50);
 
   if(frameCount % 80 == 0 ){   
     let randomTopHeight = random(height / 2);
-    // console.log(randomTopHeight);
+    console.log(randomTopHeight);
     rect1 = new Pijp(700, 0, 50, randomTopHeight, 3);
     rect2 = new Pijp(700, randomTopHeight + 120, 50, height, 3);
     pipes.push(rect1, rect2);
