@@ -2,14 +2,14 @@ let flappy;
 let img;
 var jumpSound;
 let pijp
-let tijmenkast
+let hit
 
 function preload(){
   img = loadImage('background.jpg');
   flappy = loadImage('flappy bird.png');
   pijp = loadImage('pijp.png');
   jumpSound = loadSound('wing.mp3');
-  tijmenkast = loadImage('tijmenkast.jpg')
+  hit = loadSound('hit.mp3')
 }
 
 
@@ -59,8 +59,12 @@ class Pijp {
   }
 
   isColliding(){
-    if(ball1.x > this.x && this.x + this.w < ball1.x){
-      this.c = "red";
+    if(ball1.x < this.x + this.w &&
+       ball1.x + ball1.w > this.x &&
+       ball1.y < this.y + this.h &&
+       ball1.y + ball1.h > this.y){
+       // hit.play();
+       this.c = "red"
     }
     else{
     this.c = "green";
