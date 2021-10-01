@@ -3,13 +3,15 @@ let img;
 var jumpSound;
 let pijp
 let hit
+let backgroundSong;
 
 function preload(){
   img = loadImage('background.jpg');
   flappy = loadImage('flappy bird.png');
   pijp = loadImage('pijp.png');
   jumpSound = loadSound('wing.mp3');
-  hit = loadSound('hit.mp3')
+  hit = loadSound('hit.mp3');
+  backgroundSong = loadSound('buddy.mp3')
 }
 
 
@@ -78,6 +80,8 @@ var pipes = [];
 function setup() {
   createCanvas(600, 400); 
   ball1 = new Ball(250, 50, 40, 30, 3); 
+  backgroundSong.play();
+  backgroundSong.setVolume(0.1);
 }
 
 
@@ -111,8 +115,8 @@ function draw() {
 }
 
 function keyPressed() {
-  if (keyCode == 32) {
+  if (keyCode == 32){
     ball1.vy = -7;
-    jumpSound.play()
+    // jumpSound.play()
   }
 }
