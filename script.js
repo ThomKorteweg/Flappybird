@@ -1,9 +1,11 @@
 let flappy;
 let img;
 var jumpSound;
-let pijp
-let hit
+let pijp;
+let hit;
 let backgroundSong;
+var gameState = 0;
+var scoreboard = -1
 
 function preload(){
   img = loadImage('background.jpg');
@@ -14,7 +16,7 @@ function preload(){
   backgroundSong = loadSound('buddy.mp3')
 }
 
-
+                   
 class Ball {
 
   constructor(x, y, w, h, vy) {
@@ -65,8 +67,8 @@ class Pijp {
        ball1.x + ball1.w > this.x &&
        ball1.y < this.y + this.h &&
        ball1.y + ball1.h > this.y){
-       // hit.play();
-       this.c = "red"
+       //gameState = 0
+       this.c = "red";
     }
     else{
     this.c = "green";
@@ -81,25 +83,26 @@ function setup() {
   createCanvas(600, 400); 
   ball1 = new Ball(250, 50, 40, 30, 3); 
   backgroundSong.play();
-  backgroundSong.setVolume(0.1);
+  backgroundSong.setVolume();
 }
-
+    
 
 function draw() {
   background(110, 0, 32);  
-   image(img,0,0,600,520);
-   
+  image(img,0,0,600,520);
   textSize(30);
   fill('white');
-  text("0",250, 50);
+  text(scoreboard,250, 50);
 
+  //console.log(frameCount)
+
+   
   if(frameCount % 70 == 0 ){   
     let randomTopHeight = random(height / 2);  
-  
     rect1 = new Pijp(700, 0, 50, randomTopHeight, 3);
     rect2 = new Pijp(700, randomTopHeight + 120, 50, height, 3);
     pipes.push(rect1, rect2);
-
+    scoreboard = scoreboard +1
     if(pipes.length > 6){
       pipes.splice(0,2);
     }
@@ -111,12 +114,17 @@ function draw() {
     p.drawPijp();
     p.isColliding();
 
+  //if (gameState == 0)
+   //background('red')
+   //text("GAME OVER", 25, 45);
+   //x = 0;
+  
 });
 }
 
 function keyPressed() {
   if (keyCode == 32){
     ball1.vy = -7;
-    // jumpSound.play()
+      jumpSound.play()
   }
 }
