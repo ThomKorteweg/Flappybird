@@ -102,6 +102,7 @@ function draw() {
     text("GAME OVER", 200, 190);
     text("Press 1 to play again.", 160, 230)
     backgroundSong.stop();
+    text("score = " + round(scoreboard), 220, 300)
     ball1 = new Ball(250, 50, 40, 30, 3);
     pipes = [];
   }
@@ -118,7 +119,7 @@ function game() {
   image(img, 0, 0, 600, 520);
   textSize(30);
   fill('white');
-  text(scoreboard, 250, 50);
+  text(round(scoreboard), 250, 50);
 
 
   if (frameCount % 70 == 0) {
@@ -135,6 +136,10 @@ function game() {
   pipes.forEach((p) => {
     p.drawPijp();
     p.isColliding();
+
+    if(abs(p.x - ball1.x) < 20){
+      scoreboard = scoreboard +0.05;
+    }
   });
 }
 
