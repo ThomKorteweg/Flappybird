@@ -102,6 +102,8 @@ function draw() {
     text("GAME OVER", 200, 190);
     text("Press 1 to play again.", 160, 230)
     backgroundSong.stop();
+    ball1 = new Ball(250, 50, 40, 30, 3);
+    pipes = [];
   }
 }
 
