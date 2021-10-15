@@ -4,13 +4,20 @@ var jumpSound;
 let backgroundSong;
 var gameState = 0;
 var scoreboard = 0;
+var akro;
+var cookie;
+var com;
 
 function preload() {
   img = loadImage('images/background.jpg');
   flappy = loadImage('images/flappy bird.png');
   jumpSound = loadSound('sounds/wing.mp3');
-  backgroundSong = loadSound('sounds/buddy.mp3')
+  backgroundSong = loadSound('sounds/buddy.mp3');
+  akro = loadFont('fonts/Akronim-Regular.ttf');
+  cookie = loadFont('fonts/Cookie-Regular.ttf');
+  com = loadFont('fonts/com.ttf');
 }
+
 
 
 class Ball {
@@ -25,13 +32,10 @@ class Ball {
   }
   drawBall() {
     image(flappy, this.x, this.y, this.w, this.h);
-    // ellipse(this.x, this.y, this.w, this.h)
     this.vy = this.vy + this.ay;
     this.y = this.y + this.vy;
 
-    if (this.y > 400) {
-      //this.vy = 0;
-      //this.ay = 0;
+    if (this.y > 385) {
       gameState = 2
     }
     else {
@@ -54,7 +58,6 @@ class Pijp {
   }
   drawPijp() {
     fill(this.c);
-    //image(pijp, this.x, this.y, this.w, this.h, this.color)
     rect(this.x, this.y, this.w, this.h, this.color);
     this.x -= 4;
   }
@@ -97,15 +100,17 @@ function draw() {
   }
 
   if (gameState == 2) {
-    image(img, 0, 0, 600, 520);
-    textSize(100);
-    textFont('optimus princeps');
-    fill('red');
-    text("YOU DIED", 210, 150);
-    textSize
-    textFont('times new roman')
-    fill('black')
-    text("Press ENTER to play again.", 120, 190)
+    background('black');
+    textAlign(CENTER);
+    textFont(akro)
+    textSize(120);
+    fill(102, 0, 0);
+    text("YOU DIED", 300, 240);
+    textFont(cookie);
+    textAlign(LEFT);
+    textSize(30);
+    fill('white');
+    text("Press ENTER to play again.", 190, 380)
     backgroundSong.stop();
     text("Score: " + round(scoreboard), 10, 25);
     text("Highscore: " + getItem("highscore"), 10, 55)
@@ -116,15 +121,18 @@ function draw() {
 
 function menu() {
   image(img, 0, 0, 600, 520);
-  textSize(20)
+  textSize(40);
+  textAlign(CENTER);
+  textFont(com);
   text("press ENTER to start", 230, 200);
 }
 
 function game() {
   background(110, 0, 32);
   image(img, 0, 0, 600, 520);
-  textSize(30);
+  textSize(40);
   fill('white');
+  textFont(cookie);
   text(round(scoreboard), 250, 50);
 
 
