@@ -1,19 +1,15 @@
 let flappy;
 let img;
 var jumpSound;
-let pijp;
-let hit;
 let backgroundSong;
 var gameState = 0;
-var scoreboard = 0
+var scoreboard = 0;
 
 function preload() {
-  img = loadImage('background.jpg');
-  flappy = loadImage('flappy bird.png');
-  hit = loadSound('hit.mp3')
-  pijp = loadImage('pijp.png');
-  jumpSound = loadSound('wing.mp3');
-  backgroundSong = loadSound('buddy.mp3')
+  img = loadImage('images/background.jpg');
+  flappy = loadImage('images/flappy bird.png');
+  jumpSound = loadSound('sounds/wing.mp3');
+  backgroundSong = loadSound('sounds/buddy.mp3')
 }
 
 
@@ -69,6 +65,10 @@ class Pijp {
       ball1.y < this.y + this.h &&
       ball1.y + ball1.h > this.y) {
       gameState = 2;
+      let highscore = getItem("highscore");
+      if (scoreboard > highscore) {
+        storeItem("highscore", scoreboard);
+      }
     }
     else {
       this.c = 'green';
@@ -97,12 +97,18 @@ function draw() {
   }
 
   if (gameState == 2) {
-    background('red');
-    fill('black');
-    text("GAME OVER", 200, 190);
-    text("Press 1 to play again.", 160, 230)
+    image(img, 0, 0, 600, 520);
+    textSize(100);
+    textFont('optimus princeps');
+    fill('red');
+    text("YOU DIED", 210, 150);
+    textSize
+    textFont('times new roman')
+    fill('black')
+    text("Press ENTER to play again.", 120, 190)
     backgroundSong.stop();
-    text("score = " + round(scoreboard), 220, 300)
+    text("Score: " + round(scoreboard), 10, 25);
+    text("Highscore: " + getItem("highscore"), 10, 55)
     ball1 = new Ball(250, 50, 40, 30, 3);
     pipes = [];
   }
@@ -111,7 +117,7 @@ function draw() {
 function menu() {
   image(img, 0, 0, 600, 520);
   textSize(20)
-  text("press 1 to start", 250, 200);
+  text("press ENTER to start", 230, 200);
 }
 
 function game() {
@@ -137,15 +143,17 @@ function game() {
     p.drawPijp();
     p.isColliding();
 
-    if(abs(p.x - ball1.x) < 20){
-      scoreboard = scoreboard +0.05;
+    if (abs(p.x - ball1.x) < 20) {
+      scoreboard = scoreboard + 0.05;
     }
   });
+
 }
 
 function keyPressed() {
-  if (keyCode == 49) {
-    gameState = 1
+  if (keyCode == 13) {
+    gameState = 1;
+    scoreboard = 0;
   }
 
   if (keyCode == 32) {
