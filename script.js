@@ -7,6 +7,7 @@ var scoreboard = 0;
 var akro;
 var cookie;
 var com;
+var musicPlaying = 1;
 
 function preload() {
   img = loadImage('images/background.jpg');
@@ -85,8 +86,6 @@ var pipes = [];
 function setup() {
   createCanvas(600, 400);
   ball1 = new Ball(250, 50, 40, 30, 3);
-  backgroundSong.play();
-  backgroundSong.setVolume();
 }
 
 
@@ -112,10 +111,12 @@ function draw() {
     fill('white');
     text("Press ENTER to play again.", 190, 380)
     backgroundSong.stop();
+    musicPlaying = 0;
     text("Score: " + round(scoreboard), 10, 25);
     text("Highscore: " + getItem("highscore"), 10, 55)
     ball1 = new Ball(250, 50, 40, 30, 3);
     pipes = [];
+    jumpSound.stop();
   }
 }
 
@@ -134,7 +135,6 @@ function game() {
   fill('white');
   textFont(cookie);
   text(round(scoreboard), 250, 50);
-
 
   if (frameCount % 70 == 0) {
     let randomTopHeight = random(height / 2);
@@ -159,9 +159,19 @@ function game() {
 }
 
 function keyPressed() {
-  if (keyCode == 13) {
-    gameState = 1;
-    scoreboard = 0;
+  if (gameState == 0) {
+    if (keyCode == 13) {
+      gameState = 1;
+      scoreboard = 0;
+      backgroundSong.play();
+    }
+  }
+  if (gameState == 2) {
+    if (keyCode == 13) {
+      gameState = 1;
+      scoreboard = 0;
+      backgroundSong.play();
+    }
   }
 
   if (keyCode == 32) {
