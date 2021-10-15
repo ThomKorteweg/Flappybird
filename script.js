@@ -1,19 +1,20 @@
 let flappy;
 let img;
 var jumpSound;
+var dead
 let backgroundSong;
 var gameState = 0;
 var scoreboard = 0;
 var akro;
 var cookie;
 var com;
-var musicPlaying = 1;
 
 function preload() {
   img = loadImage('images/background.jpg');
   flappy = loadImage('images/flappy bird.png');
   jumpSound = loadSound('sounds/wing.mp3');
   backgroundSong = loadSound('sounds/buddy.mp3');
+  dead = loadSound('sounds/dead.mp3')
   akro = loadFont('fonts/Akronim-Regular.ttf');
   cookie = loadFont('fonts/Cookie-Regular.ttf');
   com = loadFont('fonts/com.ttf');
@@ -37,7 +38,8 @@ class Ball {
     this.y = this.y + this.vy;
 
     if (this.y > 385) {
-      gameState = 2
+      gameState = 2;
+      dead.play();
     }
     else {
       this.ay = 0.4;
@@ -69,6 +71,8 @@ class Pijp {
       ball1.y < this.y + this.h &&
       ball1.y + ball1.h > this.y) {
       gameState = 2;
+      dead.play();
+      dead.setVolume(5);
       let highscore = getItem("highscore");
       if (scoreboard > highscore) {
         storeItem("highscore", scoreboard);
@@ -111,7 +115,6 @@ function draw() {
     fill('white');
     text("Press ENTER to play again.", 190, 380)
     backgroundSong.stop();
-    musicPlaying = 0;
     text("Score: " + round(scoreboard), 10, 25);
     text("Highscore: " + getItem("highscore"), 10, 55)
     ball1 = new Ball(250, 50, 40, 30, 3);
@@ -164,6 +167,7 @@ function keyPressed() {
       gameState = 1;
       scoreboard = 0;
       backgroundSong.play();
+      dead.stop();
     }
   }
   if (gameState == 2) {
@@ -171,6 +175,7 @@ function keyPressed() {
       gameState = 1;
       scoreboard = 0;
       backgroundSong.play();
+      dead.stop();   
     }
   }
 
